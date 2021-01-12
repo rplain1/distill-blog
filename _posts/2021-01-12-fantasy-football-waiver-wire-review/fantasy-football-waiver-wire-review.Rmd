@@ -17,6 +17,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
+```{r, out.width='100%', echo=FALSE}
+knitr::include_graphics('img/final_chart.png')
+
+```
+
+
 # Fantasy Football
 
 We recently wrapped up our 2020 Fantasy Football season. In a standard regular season long league, you draft your initial team of 15 players prior to the season as your foundation. Players that go undrafted are then moved to the *waiver wire*. There are several different methods leagues can do to organize this, our league uses a blind bidding system, sometimes referred to as **FAAB** (Free Agent Auction Budget). 
@@ -25,12 +31,8 @@ Every team starts with a $100 budget. Players that are on the waiver wire can be
 
 This provides an additional layer of strategy to the game. One thing I noticed this year, was just how poor of a job I did this season! I wasted a good portion of my budget on players that no one else placed bids on. (I may or may not have finished in last place this year...)
 
-<center>
-![Sleeper Waiver Wire Summary](img/bids.png)
-</center>
 
-
-```{r, out.width='90%'}
+```{r, out.width='60%', echo=FALSE}
 knitr::include_graphics('img/bids.png')
 
 ```
@@ -69,8 +71,12 @@ There are 16 weeks of games in Fantasy Football. I'll be using Sleeper's API to 
 
 The response found on [Sleeper's documentation](https://docs.sleeper.app/#get-transactions)
 
-<center>![](img/league_transactions.png)</center>
 
+
+```{r, out.width='60%', echo=FALSE}
+knitr::include_graphics('img/league_transactions.png')
+
+```
 #### Below is the call for week 1
 
 ```{r}
@@ -89,9 +95,8 @@ head(df)
 
 I left the default tibble output to show what kind of mess we are dealing with. Any json data that is still nested will either be as lists or dataframes within the tibble. Players added and dropped are stored as their player id and the roster id (which won't be used for this analysis). These will be stored as a nested data frame of the player ids as columns and roster id as rows. 
 
-```{r}
-kableExtra::kbl(head(df$adds, 7)) %>% 
-  kableExtra::kable_styling()
+```{r, echo=FALSE}
+rmarkdown::paged_table(df$adds)
 ```
 
 For this analysis, I do not need roster positions. All that is needed is the column names which are the id's of the players added. 
@@ -144,14 +149,17 @@ rmarkdown::paged_table(dfs)
 
 ## Player's Data
 
-I absolutely **LOVE** <span style="color: blue>#rstats</span> but Python was my first programming language. Sometimes I need to fall back on that because I know how to work with certain data structures outside of data frames better. 
+I absolutely **LOVE** <span style="color: blue">#rstats</span> but Python was my first programming language. Sometimes I need to fall back on that because I know how to work with certain data structures outside of data frames better. 
 
 Thankfully, with the help of the developers at Rstudio, we can run Python **AND** R for one project. With {rmarkdown} & {reticulate} I can leverage strengths of both languages, and pass data along to one another. 
 
 To get the player's information, I will call the API for players. 
 
-<center>![players](img/players.png)</center>
 
+```{r, out.width='60%', echo=FALSE}
+knitr::include_graphics('img/players.png')
+
+```
 **\*Important to note: the size is rather large, and Sleeper has requested that this call is done no more than once a day to update a database **
 
 ### Load in Python Librarys
@@ -251,9 +259,9 @@ df <- left_join(df, users, by=c("creator" = "user_id"))
 
 ### Work with Dataframe
 
+A quick summary of each person, how much they spent on players in total and unopposed. 
 
-
-```{r}
+```{r, echo=FALSE}
 df %>% 
   group_by(week, full_name) %>% 
   mutate(num_bids = n()) %>% 
@@ -262,11 +270,10 @@ df %>%
   group_by(display_name) %>% 
   summarise(no_opposition = sum(bid, na.rm = T),
             player_amount = max(bid, na.rm = T), .groups = 'drop') %>% 
-  kableExtra::kbl() %>% 
-  kableExtra::kable_styling()
+  rmarkdown::paged_table(.)
 ```
 
-I am creating 3 dataframes to be joined together.
+Now to create 3 dataframes to be joined together.
 
 1. Bids where a user was the only person to bid
 2. What player each user "wasted" the most FAAB on

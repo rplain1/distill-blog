@@ -1,5 +1,5 @@
-name: "distill-blog"
-title: "Ryan's Blog"
+name: "Plain-Data"
+title: "Plain Data"
 description: |
   Ryan's Blog
 output_dir: "_site"

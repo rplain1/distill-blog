@@ -85,7 +85,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-<title>Ryan's Blog: Fantasy Football Waiver Wire Review</title>
+<title>Plain Data: Fantasy Football Waiver Wire Review</title>
 
 <meta property="description" itemprop="description" content="Analyzing data from Sleeper&#39;s API of my Fantasy Football league to see how each team did managing the waiver wire."/>
 
@@ -96,15 +96,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <meta name="article:author" content="Ryan Plain"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="Ryan&#39;s Blog: Fantasy Football Waiver Wire Review"/>
+<meta property="og:title" content="Plain Data: Fantasy Football Waiver Wire Review"/>
 <meta property="og:type" content="article"/>
 <meta property="og:description" content="Analyzing data from Sleeper&#39;s API of my Fantasy Football league to see how each team did managing the waiver wire."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:site_name" content="Ryan&#39;s Blog"/>
+<meta property="og:site_name" content="Plain Data"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="Ryan&#39;s Blog: Fantasy Football Waiver Wire Review"/>
+<meta property="twitter:title" content="Plain Data: Fantasy Football Waiver Wire Review"/>
 <meta property="twitter:description" content="Analyzing data from Sleeper&#39;s API of my Fantasy Football league to see how each team did managing the waiver wire."/>
 
 <!--/radix_placeholder_meta_tags-->
@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["fantasy-football-waiver-wire-review_files/anchor-4.2.2/anchor.min.js","fantasy-football-waiver-wire-review_files/bowser-1.9.3/bowser.min.js","fantasy-football-waiver-wire-review_files/distill-2.2.21/template.v2.js","fantasy-football-waiver-wire-review_files/figure-html5/unnamed-chunk-14-1.png","fantasy-football-waiver-wire-review_files/figure-html5/unnamed-chunk-15-1.png","fantasy-football-waiver-wire-review_files/header-attrs-2.6/header-attrs.js","fantasy-football-waiver-wire-review_files/jquery-1.11.3/jquery.min.js","fantasy-football-waiver-wire-review_files/kePrint-0.0.1/kePrint.js","fantasy-football-waiver-wire-review_files/lightable-0.0.1/lightable.css","fantasy-football-waiver-wire-review_files/pagedtable-1.1/css/pagedtable.css","fantasy-football-waiver-wire-review_files/pagedtable-1.1/js/pagedtable.js","fantasy-football-waiver-wire-review_files/webcomponents-2.0.0/webcomponents.js","img/bids.png","img/league_transactions.png","img/players.png"]}
+  {"type":"character","attributes":{},"value":["fantasy-football-waiver-wire-review_files/anchor-4.2.2/anchor.min.js","fantasy-football-waiver-wire-review_files/bowser-1.9.3/bowser.min.js","fantasy-football-waiver-wire-review_files/distill-2.2.21/template.v2.js","fantasy-football-waiver-wire-review_files/figure-html5/unnamed-chunk-14-1.png","fantasy-football-waiver-wire-review_files/figure-html5/unnamed-chunk-15-1.png","fantasy-football-waiver-wire-review_files/figure-html5/unnamed-chunk-17-1.png","fantasy-football-waiver-wire-review_files/figure-html5/unnamed-chunk-18-1.png","fantasy-football-waiver-wire-review_files/header-attrs-2.6/header-attrs.js","fantasy-football-waiver-wire-review_files/jquery-1.11.3/jquery.min.js","fantasy-football-waiver-wire-review_files/kePrint-0.0.1/kePrint.js","fantasy-football-waiver-wire-review_files/lightable-0.0.1/lightable.css","fantasy-football-waiver-wire-review_files/pagedtable-1.1/css/pagedtable.css","fantasy-football-waiver-wire-review_files/pagedtable-1.1/js/pagedtable.js","fantasy-football-waiver-wire-review_files/webcomponents-2.0.0/webcomponents.js","img/bids.png","img/final_chart.png","img/league_transactions.png","img/players.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -1997,8 +1997,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!--/radix_placeholder_distill-->
   <script src="../../site_libs/header-attrs-2.6/header-attrs.js"></script>
-  <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
-  <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
   <script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -2025,7 +2023,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="../../index.html" class="title">Ryan's Blog</a>
+<a href="../../index.html" class="title">Plain Data</a>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
 </div>
 <div class="nav-right">
@@ -2053,19 +2051,15 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <div class="d-article">
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="img/final_chart.png" width="100%" /></p>
+</div>
 <h1 id="fantasy-football">Fantasy Football</h1>
 <p>We recently wrapped up our 2020 Fantasy Football season. In a standard regular season long league, you draft your initial team of 15 players prior to the season as your foundation. Players that go undrafted are then moved to the <em>waiver wire</em>. There are several different methods leagues can do to organize this, our league uses a blind bidding system, sometimes referred to as <strong>FAAB</strong> (Free Agent Auction Budget).</p>
 <p>Every team starts with a $100 budget. Players that are on the waiver wire can be bid on following weekly games, with the transactions processing Tuesday night. The highest bidder will then receive rights to that player on their team.</p>
 <p>This provides an additional layer of strategy to the game. One thing I noticed this year, was just how poor of a job I did this season! I wasted a good portion of my budget on players that no one else placed bids on. (I may or may not have finished in last place this year…)</p>
-<center>
-<img src="img/bids.png" title="fig:" alt="Sleeper Waiver Wire Summary" />
-</center>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre><code><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>'img/bids.png'</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="img/bids.png" width="90%" /></p>
+<p><img src="img/bids.png" width="60%" /></p>
 </div>
 <p>On this particular day, I bid $10 on 2 different players that no other team bid on. Had I played it better, I could have had both of them for free. This is the added dimensionality FAAB brings.</p>
 <p>Our league used a platform <a href="https://sleeper.app/">Sleeper</a> to host our Fantasy Football league.</p>
@@ -2090,9 +2084,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <h3 id="setup-data">Setup Data</h3>
 <p>There are 16 weeks of games in Fantasy Football. I’ll be using Sleeper’s API to pull transactions from my league. The API only supports read functionality, so no harm in sharing my league id!</p>
 <p>The response found on <a href="https://docs.sleeper.app/#get-transactions">Sleeper’s documentation</a></p>
-<center>
-<img src="img/league_transactions.png" />
-</center>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="img/league_transactions.png" width="60%" /></p>
+</div>
 <h4 id="below-is-the-call-for-week-1">Below is the call for week 1</h4>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2127,393 +2121,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 <p>I left the default tibble output to show what kind of mess we are dealing with. Any json data that is still nested will either be as lists or dataframes within the tibble. Players added and dropped are stored as their player id and the roster id (which won’t be used for this analysis). These will be stored as a nested data frame of the player ids as columns and roster id as rows.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre><code><span class='fu'>kableExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>adds</span>, <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>kableExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_styling.html'>kable_styling</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["3423"],"name":[1],"type":["int"],"align":["right"]},{"label":["7045"],"name":[2],"type":["int"],"align":["right"]},{"label":["CHI"],"name":[3],"type":["int"],"align":["right"]},{"label":["5872"],"name":[4],"type":["int"],"align":["right"]},{"label":["6156"],"name":[5],"type":["int"],"align":["right"]},{"label":["5110"],"name":[6],"type":["int"],"align":["right"]},{"label":["4036"],"name":[7],"type":["int"],"align":["right"]},{"label":["5347"],"name":[8],"type":["int"],"align":["right"]},{"label":["TB"],"name":[9],"type":["int"],"align":["right"]},{"label":["2588"],"name":[10],"type":["int"],"align":["right"]},{"label":["5122"],"name":[11],"type":["int"],"align":["right"]},{"label":["6798"],"name":[12],"type":["int"],"align":["right"]},{"label":["6955"],"name":[13],"type":["int"],"align":["right"]},{"label":["2257"],"name":[14],"type":["int"],"align":["right"]},{"label":["KC"],"name":[15],"type":["int"],"align":["right"]}],"data":[{"1":"6","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"1"},{"1":"NA","2":"2","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"2"},{"1":"NA","2":"NA","3":"3","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"3"},{"1":"NA","2":"NA","3":"NA","4":"3","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"4"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"3","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"5"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"3","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"6"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"3","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"7"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"8"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"2","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"9"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"4","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"10"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"6","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"11"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"6","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"12"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"13"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"1","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"14"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"2","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"15"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"9","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"16"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"8","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"17"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"8","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"18"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"3","11":"NA","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"19"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"1","12":"NA","13":"NA","14":"NA","15":"NA","_rn_":"20"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"2","13":"NA","14":"NA","15":"NA","_rn_":"21"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"6","14":"NA","15":"NA","_rn_":"22"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"10","15":"NA","_rn_":"23"},{"1":"NA","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA","9":"NA","10":"NA","11":"NA","12":"NA","13":"NA","14":"NA","15":"1","_rn_":"24"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:right;">
-3423
-</th>
-<th style="text-align:right;">
-7045
-</th>
-<th style="text-align:right;">
-CHI
-</th>
-<th style="text-align:right;">
-5872
-</th>
-<th style="text-align:right;">
-6156
-</th>
-<th style="text-align:right;">
-5110
-</th>
-<th style="text-align:right;">
-4036
-</th>
-<th style="text-align:right;">
-5347
-</th>
-<th style="text-align:right;">
-TB
-</th>
-<th style="text-align:right;">
-2588
-</th>
-<th style="text-align:right;">
-5122
-</th>
-<th style="text-align:right;">
-6798
-</th>
-<th style="text-align:right;">
-6955
-</th>
-<th style="text-align:right;">
-2257
-</th>
-<th style="text-align:right;">
-KC
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-</tbody>
-</table>
 </div>
 <p>For this analysis, I do not need roster positions. All that is needed is the column names which are the id’s of the players added.</p>
 <hr />
@@ -2564,12 +2176,12 @@ NA
 </div>
 <hr />
 <h2 id="players-data">Player’s Data</h2>
-<p>I absolutely <strong>LOVE</strong> &lt;span style="color: blue&gt;#rstats</span> but Python was my first programming language. Sometimes I need to fall back on that because I know how to work with certain data structures outside of data frames better.</p>
+<p>I absolutely <strong>LOVE</strong> <span style="color: blue">#rstats</span> but Python was my first programming language. Sometimes I need to fall back on that because I know how to work with certain data structures outside of data frames better.</p>
 <p>Thankfully, with the help of the developers at Rstudio, we can run Python <strong>AND</strong> R for one project. With {rmarkdown} &amp; {reticulate} I can leverage strengths of both languages, and pass data along to one another.</p>
 <p>To get the player’s information, I will call the API for players.</p>
-<center>
-<img src="img/players.png" title="fig:" alt="players" />
-</center>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="img/players.png" width="60%" /></p>
+</div>
 <p><strong>*Important to note: the size is rather large, and Sleeper has requested that this call is done no more than once a day to update a database </strong></p>
 <h3 id="load-in-python-librarys">Load in Python Librarys</h3>
 <div class="layout-chunk" data-layout="l-body">
@@ -2649,149 +2261,15 @@ NA
 </div>
 </div>
 <h3 id="work-with-dataframe">Work with Dataframe</h3>
+<p>A quick summary of each person, how much they spent on players in total and unopposed.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre><code><span class='va'>df</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>week</span>, <span class='va'>full_name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>num_bids <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>num_bids</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='va'>status</span> <span class='op'>==</span> <span class='st'>"complete"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>ungroup</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>display_name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>summarise</span><span class='op'>(</span>no_opposition <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>bid</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,
-            player_amount <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>bid</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>, .groups <span class='op'>=</span> <span class='st'>'drop'</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>kableExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>kableExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_styling.html'>kable_styling</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["display_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["no_opposition"],"name":[2],"type":["int"],"align":["right"]},{"label":["player_amount"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"benmann26","2":"30","3":"10"},{"1":"Callmedougfunny","2":"5","3":"2"},{"1":"DirtyMcCurdy","2":"21","3":"6"},{"1":"jcbryant12","2":"0","3":"0"},{"1":"manthony94","2":"46","3":"31"},{"1":"OnlyMike19","2":"21","3":"7"},{"1":"rplain","2":"72","3":"24"},{"1":"sauceboss91","2":"31","3":"8"},{"1":"waynemcfadin","2":"33","3":"31"},{"1":"ZachAttack14","2":"27","3":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-display_name
-</th>
-<th style="text-align:right;">
-no_opposition
-</th>
-<th style="text-align:right;">
-player_amount
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-benmann26
-</td>
-<td style="text-align:right;">
-30
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Callmedougfunny
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DirtyMcCurdy
-</td>
-<td style="text-align:right;">
-21
-</td>
-<td style="text-align:right;">
-6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-jcbryant12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-manthony94
-</td>
-<td style="text-align:right;">
-46
-</td>
-<td style="text-align:right;">
-31
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-OnlyMike19
-</td>
-<td style="text-align:right;">
-21
-</td>
-<td style="text-align:right;">
-7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-rplain
-</td>
-<td style="text-align:right;">
-72
-</td>
-<td style="text-align:right;">
-24
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-sauceboss91
-</td>
-<td style="text-align:right;">
-31
-</td>
-<td style="text-align:right;">
-8
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-waynemcfadin
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-31
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ZachAttack14
-</td>
-<td style="text-align:right;">
-27
-</td>
-<td style="text-align:right;">
-6
-</td>
-</tr>
-</tbody>
-</table>
 </div>
-<p>I am creating 3 dataframes to be joined together.</p>
+<p>Now to create 3 dataframes to be joined together.</p>
 <ol type="1">
 <li>Bids where a user was the only person to bid</li>
 <li>What player each user “wasted” the most FAAB on</li>
@@ -2879,7 +2357,7 @@ ZachAttack14
 </div>
 <center>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="fantasy-football-waiver-wire-review_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
+<p><img src="fantasy-football-waiver-wire-review_files/figure-html5/unnamed-chunk-18-1.png" width="624" /></p>
 </div>
 </center>
 <p>Wow! My name is Ryan, and I have a spending problem. I spent more budget on players that no one else bid on than half of the league did in total.</p>
@@ -2945,7 +2423,7 @@ ZachAttack14
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#ogqvfaxxfd .gt_table {
+#hbeemokrww .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2970,7 +2448,7 @@ ZachAttack14
   border-left-color: #D3D3D3;
 }
 
-#ogqvfaxxfd .gt_heading {
+#hbeemokrww .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2982,7 +2460,7 @@ ZachAttack14
   border-right-color: #D3D3D3;
 }
 
-#ogqvfaxxfd .gt_title {
+#hbeemokrww .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2992,7 +2470,7 @@ ZachAttack14
   border-bottom-width: 0;
 }
 
-#ogqvfaxxfd .gt_subtitle {
+#hbeemokrww .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3002,13 +2480,13 @@ ZachAttack14
   border-top-width: 0;
 }
 
-#ogqvfaxxfd .gt_bottom_border {
+#hbeemokrww .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ogqvfaxxfd .gt_col_headings {
+#hbeemokrww .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3023,7 +2501,7 @@ ZachAttack14
   border-right-color: #D3D3D3;
 }
 
-#ogqvfaxxfd .gt_col_heading {
+#hbeemokrww .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3043,7 +2521,7 @@ ZachAttack14
   overflow-x: hidden;
 }
 
-#ogqvfaxxfd .gt_column_spanner_outer {
+#hbeemokrww .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3055,15 +2533,15 @@ ZachAttack14
   padding-right: 4px;
 }
 
-#ogqvfaxxfd .gt_column_spanner_outer:first-child {
+#hbeemokrww .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ogqvfaxxfd .gt_column_spanner_outer:last-child {
+#hbeemokrww .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ogqvfaxxfd .gt_column_spanner {
+#hbeemokrww .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3075,7 +2553,7 @@ ZachAttack14
   width: 100%;
 }
 
-#ogqvfaxxfd .gt_group_heading {
+#hbeemokrww .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3097,7 +2575,7 @@ ZachAttack14
   vertical-align: middle;
 }
 
-#ogqvfaxxfd .gt_empty_group_heading {
+#hbeemokrww .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3112,15 +2590,15 @@ ZachAttack14
   vertical-align: middle;
 }
 
-#ogqvfaxxfd .gt_from_md > :first-child {
+#hbeemokrww .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ogqvfaxxfd .gt_from_md > :last-child {
+#hbeemokrww .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ogqvfaxxfd .gt_row {
+#hbeemokrww .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3139,7 +2617,7 @@ ZachAttack14
   overflow-x: hidden;
 }
 
-#ogqvfaxxfd .gt_stub {
+#hbeemokrww .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3151,7 +2629,7 @@ ZachAttack14
   padding-left: 12px;
 }
 
-#ogqvfaxxfd .gt_summary_row {
+#hbeemokrww .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3161,7 +2639,7 @@ ZachAttack14
   padding-right: 5px;
 }
 
-#ogqvfaxxfd .gt_first_summary_row {
+#hbeemokrww .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3171,7 +2649,7 @@ ZachAttack14
   border-top-color: #D3D3D3;
 }
 
-#ogqvfaxxfd .gt_grand_summary_row {
+#hbeemokrww .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3181,7 +2659,7 @@ ZachAttack14
   padding-right: 5px;
 }
 
-#ogqvfaxxfd .gt_first_grand_summary_row {
+#hbeemokrww .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3191,11 +2669,11 @@ ZachAttack14
   border-top-color: #D3D3D3;
 }
 
-#ogqvfaxxfd .gt_striped {
+#hbeemokrww .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ogqvfaxxfd .gt_table_body {
+#hbeemokrww .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3204,7 +2682,7 @@ ZachAttack14
   border-bottom-color: #D3D3D3;
 }
 
-#ogqvfaxxfd .gt_footnotes {
+#hbeemokrww .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3218,13 +2696,13 @@ ZachAttack14
   border-right-color: #D3D3D3;
 }
 
-#ogqvfaxxfd .gt_footnote {
+#hbeemokrww .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#ogqvfaxxfd .gt_sourcenotes {
+#hbeemokrww .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3238,46 +2716,46 @@ ZachAttack14
   border-right-color: #D3D3D3;
 }
 
-#ogqvfaxxfd .gt_sourcenote {
+#hbeemokrww .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#ogqvfaxxfd .gt_left {
+#hbeemokrww .gt_left {
   text-align: left;
 }
 
-#ogqvfaxxfd .gt_center {
+#hbeemokrww .gt_center {
   text-align: center;
 }
 
-#ogqvfaxxfd .gt_right {
+#hbeemokrww .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ogqvfaxxfd .gt_font_normal {
+#hbeemokrww .gt_font_normal {
   font-weight: normal;
 }
 
-#ogqvfaxxfd .gt_font_bold {
+#hbeemokrww .gt_font_bold {
   font-weight: bold;
 }
 
-#ogqvfaxxfd .gt_font_italic {
+#hbeemokrww .gt_font_italic {
   font-style: italic;
 }
 
-#ogqvfaxxfd .gt_super {
+#hbeemokrww .gt_super {
   font-size: 65%;
 }
 
-#ogqvfaxxfd .gt_footnote_marks {
+#hbeemokrww .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="ogqvfaxxfd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="hbeemokrww" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="5" class="gt_heading gt_title gt_font_normal" style><strong>Mistakes Were Made</strong></th>
