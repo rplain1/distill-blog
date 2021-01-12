@@ -29,6 +29,14 @@ This provides an additional layer of strategy to the game. One thing I noticed t
 ![Sleeper Waiver Wire Summary](img/bids.png)
 </center>
 
+
+```{r, out.width='90%'}
+knitr::include_graphics('img/bids.png')
+
+```
+
+
+
 On this particular day, I bid $10 on 2 different players that no other team bid on. Had I played it better, I could have had both of them for free. This is the added dimensionality FAAB brings.
 
 Our league used a platform [Sleeper](https://sleeper.app/)  to host our Fantasy Football league.
