@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-My previous post dove in on sample analysis of our fantasy football league utilizing the API from [Sleeper](https://sleeper.app/). Since then, I have discovered an amazing package [**{ffscrapr}**](https://ffscrapr.dynastyprocess.com) on CRAN developed by [Tan](https://twitter.com/_TanHo). This package does everything for you to get Sleeper's data into an easy format to work with. 
+My previous post dove in on sample analysis of our fantasy football league utilizing the API from [Sleeper](https://sleeper.app/). Since then, I have discovered an amazing package [**{ffscrapr}**](https://ffscrapr.dynastyprocess.com) on CRAN, developed by [Tan](https://twitter.com/_TanHo). This package does everything for you to get Sleeper's data into an easy format to work with. 
 
 ## The Goal
 
