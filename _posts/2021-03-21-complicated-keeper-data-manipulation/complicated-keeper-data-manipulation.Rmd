@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-My previous post dove in on sample analysis of our fantasy football league utilizing the API from [Sleeper](https://sleeper.app/). Since then, I have discovered an amazing package [**{ffscrapr}**](https://ffscrapr.dynastyprocess.com) on CRAN, developed by [Tan](https://twitter.com/_TanHo). This package does everything for you to get Sleeper's data into an easy format to work with. 
+My previous post dove in on sample analysis of our fantasy football league utilizing the API from [Sleeper](https://sleeper.app/). Since then, I have discovered an amazing package [**{ffscrapr}**](https://ffscrapr.dynastyprocess.com) on CRAN, developed by [Tan](https://twitter.com/_TanHo). This package does everything for you to get data from Sleeper into easy to work with data frames. 
 
 ## The Goal
 
@@ -37,7 +37,7 @@ There are several ways to implement a keeper format, our rules are as follows:
 * If you trade a player, the new team gets the rights to keep that player  
 * The player must remain on the roster at least until the week before their respective bye week
 
-As you can imagine, this is a nightmare to track in a spreadsheet as commissioner. 
+As you can imagine, this is a nightmare to track in a spreadsheet as a commissioner. 
 
 ---
 
@@ -95,7 +95,7 @@ draft_picks %>%
 
 ```
 
-Now we have a basic draft board. My team was the 9th slot. I traded away Julio Jones and cut Odell Beckham Jr. after he went to Injured Reserve. We need to build a logic to represent these moves, since they are no longer eligible for me to keep.
+This was the initial draft board. My team was the 9th slot. I traded away Julio Jones and cut Odell Beckham Jr. after he went to Injured Reserve. There needs to be a logic to represent these moves, as they are no longer eligible to keep.
 
 In addition to structuring the rules, I would like to:  
 
@@ -108,7 +108,7 @@ These can not be done with a pivot table (at least not without hardcoding elemen
 
 To start with, create a list of the players kept from 2019 in 2020. The players are no longer eligible and need to be filtered out. 
 
-The NFL and fantasy football is a game of states by week. Using the **{lubridate}**, create week 1 of the NFL season from the *timestamp* field in the transactions data frame. 
+The NFL and fantasy football is played weekly. Using the **{lubridate}**, create week 1 of the NFL season from the *timestamp* field in the transactions data frame. 
 
 To get the players that were dropped early in advance of their bye week: 
 
@@ -305,7 +305,7 @@ I've included the code on how I created the plot, however I've cut a corner by n
 
 I still have a lot to learn with **{ggplot2}**, especially when it comes to rendering the graphic in dimensions needed. Overall it was a neat problem thinking about how to represent the draftboard.
 
-Thanks for following along, and again shoutout to [Tan](https://twitter.com/_TanHo) for the awesome package!
+That wraps up this project. Thanks again to [Tan](https://twitter.com/_TanHo) for the awesome package!
 
 
 
