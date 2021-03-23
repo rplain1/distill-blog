@@ -151,7 +151,7 @@ rmarkdown::paged_table(dfs)
 
 I **LOVE** <span style="color: blue">#rstats</span>, but Python was my first programming language. I know how to work with certain data structures outside of data frames better. 
 
-Thankfully, with the help of the developers at Rstudio, we can run Python **AND** R for one project. With {rmarkdown} & {reticulate} I can leverage strengths of both languages, and pass data along to one another. 
+Thankfully, with the help of the developers at Rstudio, we can run Python **AND** R for one project. With **{rmarkdown}** & **{reticulate}** I can leverage strengths of both languages, and pass data along to one another. 
 
 To get the player's information, I will call the API for players. 
 

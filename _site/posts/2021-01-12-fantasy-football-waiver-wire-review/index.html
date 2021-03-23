@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -454,8 +455,15 @@ d-title {
   top: 0;
 }
 
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
 </style>
 
+<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -563,19 +571,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           var results = fuse.search(query, searchOptions);
           callback(results
             .map(function(result) { return result.item; })
-            .filter(function(item) { return !!item.description; })
           );
         },
         templates: {
           suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
             var html = `
               <div class="search-item">
                 <h3>${suggestion.title}</h3>
                 <div class="search-item-description">
-                  ${suggestion.description}
+                  ${suggestion.description || ''}
                 </div>
                 <div class="search-item-preview">
-                  <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
+                  ${img}
                 </div>
               </div>
             `;
@@ -598,6 +608,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 
 <style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
 
 /* Algolioa Autocomplete */
 
@@ -673,6 +687,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 }
 
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
   margin-block-start: 0;
   margin-block-end: 5px;
 }
@@ -900,6 +915,11 @@ d-article pre a:hover {
   text-decoration: underline;
 }
 
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
+}
+
 @media(min-width: 768px) {
 
 d-article pre,
@@ -1054,6 +1074,17 @@ d-article .citation {
 
 div.hanging-indent{
   margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
 }
 
 
@@ -1721,7 +1752,7 @@ function init_distill() {
     var layout = $(this).attr('data-layout');
 
     // apply layout to markdown level block elements
-    var elements = $(this).children().not('div.sourceCode, pre, script');
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
     elements.each(function(i, el) {
       var layout_div = $('<div class="' + layout + '"></div>');
       if (layout_div.hasClass('shaded')) {
@@ -1836,6 +1867,20 @@ function init_distill() {
     // move appendix-bottom entries to the bottom
     $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
     $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
 
     // clear polling timer
     clearInterval(tid);
@@ -1996,10 +2041,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.6/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.7/header-attrs.js"></script>
   <link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
   <script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
@@ -2069,13 +2118,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>Import the necessary libraries</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span> <span class='co'># all the things</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span> <span class='co'># all the things</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://rvest.tidyverse.org/'>rvest</a></span><span class='op'>)</span> <span class='co'># webscraping</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://arxiv.org/abs/1403.2805'>jsonlite</a></span><span class='op'>)</span> <span class='co'># json to dataframe</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://httr.r-lib.org/'>httr</a></span><span class='op'>)</span> <span class='co'># GET request</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/reticulate'>reticulate</a></span><span class='op'>)</span> <span class='co'># python</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://wilkelab.org/ggtext/'>ggtext</a></span><span class='op'>)</span> <span class='co'># add markdown elements to ggplot</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://github.com/jrnold/ggthemes'>ggthemes</a></span><span class='op'>)</span> 
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/jrnold/ggthemes'>ggthemes</a></span><span class='op'>)</span> 
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/EmilHvitfeldt/paletteer'>paletteer</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/gt'>gt</a></span><span class='op'>)</span> <span class='co'># beautiful tables in R</span>
 </code></pre>
@@ -2090,7 +2139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <h4 id="below-is-the-call-for-week-1">Below is the call for week 1</h4>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>url</span> <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>'https://api.sleeper.app/v1/league/580173188063862784/transactions/1'</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>url</span> <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>'https://api.sleeper.app/v1/league/580173188063862784/transactions/1'</span><span class='op'>)</span>
 <span class='va'>res</span> <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span><span class='op'>(</span><span class='va'>url</span><span class='op'>)</span>
 <span class='va'>res_json</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>rawToChar</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>$</span><span class='va'>content</span><span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>jsonlite</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/jsonlite/man/fromJSON.html'>fromJSON</a></span><span class='op'>(</span><span class='va'>res_json</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2102,22 +2151,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </code></pre>
 </div>
 <pre><code># A tibble: 6 x 14
-  waiver_budget type  transaction_id status_updated status
-  &lt;list&gt;        &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt; &lt;chr&gt; 
-1 &lt;list [0]&gt;    waiv… 6118254650946…  1600272284877 failed
-2 &lt;list [0]&gt;    waiv… 6118150292930…  1600272284877 failed
-3 &lt;list [0]&gt;    waiv… 6117835891300…  1600272284877 compl…
-4 &lt;list [0]&gt;    waiv… 6117834665221…  1600358696203 failed
-5 &lt;list [0]&gt;    waiv… 6117831882468…  1600272284877 failed
-6 &lt;list [0]&gt;    waiv… 6117831288051…  1600272284877 failed
-# … with 25 more variables: settings$waiver_bid &lt;int&gt;, $seq &lt;int&gt;,
-#   $priority &lt;int&gt;, roster_ids &lt;list&gt;, metadata$notes &lt;chr&gt;,
-#   leg &lt;int&gt;, draft_picks &lt;list&gt;, creator &lt;chr&gt;, created &lt;dbl&gt;,
-#   consenter_ids &lt;list&gt;, adds$`3423` &lt;int&gt;, $`7045` &lt;int&gt;,
-#   $CHI &lt;int&gt;, $`5872` &lt;int&gt;, $`6156` &lt;int&gt;, $`5110` &lt;int&gt;,
-#   $`4036` &lt;int&gt;, $`5347` &lt;int&gt;, $TB &lt;int&gt;, $`2588` &lt;int&gt;,
-#   $`5122` &lt;int&gt;, $`6798` &lt;int&gt;, $`6955` &lt;int&gt;, $`2257` &lt;int&gt;,
-#   $KC &lt;int&gt;</code></pre>
+  waiver_budget type   transaction_id     status_updated status  
+  &lt;list&gt;        &lt;chr&gt;  &lt;chr&gt;                       &lt;dbl&gt; &lt;chr&gt;   
+1 &lt;list [0]&gt;    waiver 611825465094651904  1600272284877 failed  
+2 &lt;list [0]&gt;    waiver 611815029293051904  1600272284877 failed  
+3 &lt;list [0]&gt;    waiver 611783589130018816  1600272284877 complete
+4 &lt;list [0]&gt;    waiver 611783466522112000  1600358696203 failed  
+5 &lt;list [0]&gt;    waiver 611783188246806528  1600272284877 failed  
+6 &lt;list [0]&gt;    waiver 611783128805130240  1600272284877 failed  
+# … with 9 more variables: settings &lt;df[,3]&gt;, roster_ids &lt;list&gt;,
+#   metadata &lt;df[,1]&gt;, leg &lt;int&gt;, draft_picks &lt;list&gt;, creator &lt;chr&gt;,
+#   created &lt;dbl&gt;, consenter_ids &lt;list&gt;, adds &lt;df[,15]&gt;</code></pre>
 </div>
 <p>I left the default tibble output to show what kind of mess we are dealing with. Any json data that is still nested will either be as lists or dataframes within the tibble. Players added and dropped are stored as their player id and the roster id (which won’t be used for this analysis). These will be stored as a nested data frame of the player ids as columns and roster id as rows.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2134,7 +2178,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>To tidy the dataset all that needs to be done now is to filter out NA values from the pivot, making each transaction a row of 1 player attempted to be added, with a status of <strong>Complete</strong> or <strong>Failed</strong>.</p>
 <div class="layout-chunk" data-layout="l-body-outset">
 <div class="sourceCode">
-<pre><code><span class='va'>dfs</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dfs</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span><span class='op'>)</span>
 <span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>16</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>url</span> <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>'https://api.sleeper.app/v1/league/580173188063862784/transactions/{i}'</span><span class='op'>)</span>
   <span class='va'>res</span> <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span><span class='op'>(</span><span class='va'>url</span><span class='op'>)</span>
@@ -2165,7 +2209,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>value1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='va'>status_updated</span>, <span class='op'>-</span><span class='va'>value1</span><span class='op'>)</span>
 
-<span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rmarkdown/man/paged_table.html'>paged_table</a></span><span class='op'>(</span><span class='va'>dfs</span><span class='op'>)</span>
+<span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/rmarkdown/reference/paged_table.html'>paged_table</a></span><span class='op'>(</span><span class='va'>dfs</span><span class='op'>)</span>
 </code></pre>
 </div>
 <div data-pagedtable="false">
@@ -2176,8 +2220,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 <hr />
 <h2 id="players-data">Player’s Data</h2>
-<p>I absolutely <strong>LOVE</strong> <span style="color: blue">#rstats</span> but Python was my first programming language. Sometimes I need to fall back on that because I know how to work with certain data structures outside of data frames better.</p>
-<p>Thankfully, with the help of the developers at Rstudio, we can run Python <strong>AND</strong> R for one project. With {rmarkdown} &amp; {reticulate} I can leverage strengths of both languages, and pass data along to one another.</p>
+<p>I <strong>LOVE</strong> <span style="color: blue">#rstats</span>, but Python was my first programming language. I know how to work with certain data structures outside of data frames better.</p>
+<p>Thankfully, with the help of the developers at Rstudio, we can run Python <strong>AND</strong> R for one project. With <strong>{rmarkdown}</strong> &amp; <strong>{reticulate}</strong> I can leverage strengths of both languages, and pass data along to one another.</p>
 <p>To get the player’s information, I will call the API for players.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="img/players.png" width="60%" /></p>
@@ -2209,7 +2253,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>Now that all the data needed for the analysis has been brought in, I’ll use {reticulate} to access the python data with R.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>users</span> <span class='op'>&lt;-</span> <span class='va'>py</span><span class='op'>$</span><span class='va'>users</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>users</span> <span class='op'>&lt;-</span> <span class='va'>py</span><span class='op'>$</span><span class='va'>users</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>as_tibble</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span><span class='va'>avatar</span>, <span class='va'>display_name</span>, <span class='va'>user_id</span><span class='op'>)</span>
 </code></pre>
@@ -2228,7 +2272,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>pyplayers</span> <span class='op'>&lt;-</span> <span class='va'>py</span><span class='op'>$</span><span class='va'>players</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pyplayers</span> <span class='op'>&lt;-</span> <span class='va'>py</span><span class='op'>$</span><span class='va'>players</span>
 
 <span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='va'>dfs</span><span class='op'>$</span><span class='va'>add</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>ids</span>, <span class='va'>df</span><span class='op'>$</span><span class='va'>drop</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
@@ -2254,7 +2298,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>Finally! Now that the data is prepped, it is time to join them together to start analysis.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>dfs</span>, <span class='va'>pyplayers</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"add"</span><span class='op'>=</span><span class='st'>"index"</span><span class='op'>)</span><span class='op'>)</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>dfs</span>, <span class='va'>pyplayers</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"add"</span><span class='op'>=</span><span class='st'>"index"</span><span class='op'>)</span><span class='op'>)</span> 
 
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>users</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"creator"</span> <span class='op'>=</span> <span class='st'>"user_id"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
@@ -2265,7 +2309,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="layout-chunk" data-layout="l-body">
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["display_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["no_opposition"],"name":[2],"type":["int"],"align":["right"]},{"label":["player_amount"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"benmann26","2":"30","3":"10"},{"1":"Callmedougfunny","2":"5","3":"2"},{"1":"DirtyMcCurdy","2":"21","3":"6"},{"1":"jcbryant12","2":"0","3":"0"},{"1":"manthony94","2":"46","3":"31"},{"1":"OnlyMike19","2":"21","3":"7"},{"1":"rplain","2":"72","3":"24"},{"1":"sauceboss91","2":"31","3":"8"},{"1":"waynemcfadin","2":"33","3":"31"},{"1":"ZachAttack14","2":"27","3":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["display_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["no_opposition"],"name":[2],"type":["int"],"align":["right"]},{"label":["player_amount"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"benmann26","2":"30","3":"10","_rn_":"1"},{"1":"Callmedougfunny","2":"5","3":"2","_rn_":"2"},{"1":"DirtyMcCurdy","2":"21","3":"6","_rn_":"3"},{"1":"jcbryant12","2":"0","3":"0","_rn_":"4"},{"1":"manthony94","2":"46","3":"31","_rn_":"5"},{"1":"OnlyMike19","2":"21","3":"7","_rn_":"6"},{"1":"rplain","2":"72","3":"24","_rn_":"7"},{"1":"sauceboss91","2":"31","3":"8","_rn_":"8"},{"1":"waynemcfadin","2":"33","3":"31","_rn_":"9"},{"1":"ZachAttack14","2":"27","3":"6","_rn_":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -2278,7 +2322,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>Since I knew my leaguemates personally, I went ahead and added their first names in the dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>lonesome_bids</span> <span class='op'>&lt;-</span> <span class='va'>df</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lonesome_bids</span> <span class='op'>&lt;-</span> <span class='va'>df</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>week</span>, <span class='va'>full_name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>mutate</span><span class='op'>(</span>num_bids <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>num_bids</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='va'>status</span> <span class='op'>==</span> <span class='st'>"complete"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2326,7 +2370,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2 id="final-result">Final Result</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span>   
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'>%&gt;%</span>   
   <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>display_name</span>, <span class='va'>total_spent</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_col</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y<span class='op'>=</span><span class='va'>total_spent</span><span class='op'>)</span>, fill<span class='op'>=</span><span class='st'>"#003399"</span>, width <span class='op'>=</span> <span class='fl'>0.9</span>, alpha<span class='op'>=</span><span class='fl'>0.81</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_col</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>y<span class='op'>=</span><span class='va'>no_opposition</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='st'>"#ff2b4f"</span>, width <span class='op'>=</span> <span class='fl'>0.9</span>, alpha<span class='op'>=</span><span class='fl'>01</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2364,7 +2408,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><br></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre><code><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>arrange</span><span class='op'>(</span><span class='op'>-</span><span class='va'>no_opposition</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'>select</span><span class='op'>(</span>Name <span class='op'>=</span> <span class='va'>display_name</span>, `Total Bid` <span class='op'>=</span> <span class='va'>total_spent</span>, Player <span class='op'>=</span> <span class='va'>full_name</span>, Bid <span class='op'>=</span> <span class='va'>max_bid</span>, `Only Bidder` <span class='op'>=</span> <span class='va'>no_opposition</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/pkg/gt/man/gt.html'>gt</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2423,7 +2467,7 @@ document.addEventListener('DOMContentLoaded', function() {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#hbeemokrww .gt_table {
+#jrieqpzzsk .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2448,7 +2492,7 @@ document.addEventListener('DOMContentLoaded', function() {
   border-left-color: #D3D3D3;
 }
 
-#hbeemokrww .gt_heading {
+#jrieqpzzsk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2460,7 +2504,7 @@ document.addEventListener('DOMContentLoaded', function() {
   border-right-color: #D3D3D3;
 }
 
-#hbeemokrww .gt_title {
+#jrieqpzzsk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2470,7 +2514,7 @@ document.addEventListener('DOMContentLoaded', function() {
   border-bottom-width: 0;
 }
 
-#hbeemokrww .gt_subtitle {
+#jrieqpzzsk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2480,13 +2524,13 @@ document.addEventListener('DOMContentLoaded', function() {
   border-top-width: 0;
 }
 
-#hbeemokrww .gt_bottom_border {
+#jrieqpzzsk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hbeemokrww .gt_col_headings {
+#jrieqpzzsk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2501,7 +2545,7 @@ document.addEventListener('DOMContentLoaded', function() {
   border-right-color: #D3D3D3;
 }
 
-#hbeemokrww .gt_col_heading {
+#jrieqpzzsk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2521,7 +2565,7 @@ document.addEventListener('DOMContentLoaded', function() {
   overflow-x: hidden;
 }
 
-#hbeemokrww .gt_column_spanner_outer {
+#jrieqpzzsk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2533,15 +2577,15 @@ document.addEventListener('DOMContentLoaded', function() {
   padding-right: 4px;
 }
 
-#hbeemokrww .gt_column_spanner_outer:first-child {
+#jrieqpzzsk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hbeemokrww .gt_column_spanner_outer:last-child {
+#jrieqpzzsk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hbeemokrww .gt_column_spanner {
+#jrieqpzzsk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2553,7 +2597,7 @@ document.addEventListener('DOMContentLoaded', function() {
   width: 100%;
 }
 
-#hbeemokrww .gt_group_heading {
+#jrieqpzzsk .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2575,7 +2619,7 @@ document.addEventListener('DOMContentLoaded', function() {
   vertical-align: middle;
 }
 
-#hbeemokrww .gt_empty_group_heading {
+#jrieqpzzsk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2590,15 +2634,15 @@ document.addEventListener('DOMContentLoaded', function() {
   vertical-align: middle;
 }
 
-#hbeemokrww .gt_from_md > :first-child {
+#jrieqpzzsk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hbeemokrww .gt_from_md > :last-child {
+#jrieqpzzsk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hbeemokrww .gt_row {
+#jrieqpzzsk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2617,7 +2661,7 @@ document.addEventListener('DOMContentLoaded', function() {
   overflow-x: hidden;
 }
 
-#hbeemokrww .gt_stub {
+#jrieqpzzsk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2629,7 +2673,7 @@ document.addEventListener('DOMContentLoaded', function() {
   padding-left: 12px;
 }
 
-#hbeemokrww .gt_summary_row {
+#jrieqpzzsk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2639,7 +2683,7 @@ document.addEventListener('DOMContentLoaded', function() {
   padding-right: 5px;
 }
 
-#hbeemokrww .gt_first_summary_row {
+#jrieqpzzsk .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2649,7 +2693,7 @@ document.addEventListener('DOMContentLoaded', function() {
   border-top-color: #D3D3D3;
 }
 
-#hbeemokrww .gt_grand_summary_row {
+#jrieqpzzsk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2659,7 +2703,7 @@ document.addEventListener('DOMContentLoaded', function() {
   padding-right: 5px;
 }
 
-#hbeemokrww .gt_first_grand_summary_row {
+#jrieqpzzsk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2669,11 +2713,11 @@ document.addEventListener('DOMContentLoaded', function() {
   border-top-color: #D3D3D3;
 }
 
-#hbeemokrww .gt_striped {
+#jrieqpzzsk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hbeemokrww .gt_table_body {
+#jrieqpzzsk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2682,7 +2726,7 @@ document.addEventListener('DOMContentLoaded', function() {
   border-bottom-color: #D3D3D3;
 }
 
-#hbeemokrww .gt_footnotes {
+#jrieqpzzsk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2696,13 +2740,13 @@ document.addEventListener('DOMContentLoaded', function() {
   border-right-color: #D3D3D3;
 }
 
-#hbeemokrww .gt_footnote {
+#jrieqpzzsk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#hbeemokrww .gt_sourcenotes {
+#jrieqpzzsk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2716,46 +2760,46 @@ document.addEventListener('DOMContentLoaded', function() {
   border-right-color: #D3D3D3;
 }
 
-#hbeemokrww .gt_sourcenote {
+#jrieqpzzsk .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#hbeemokrww .gt_left {
+#jrieqpzzsk .gt_left {
   text-align: left;
 }
 
-#hbeemokrww .gt_center {
+#jrieqpzzsk .gt_center {
   text-align: center;
 }
 
-#hbeemokrww .gt_right {
+#jrieqpzzsk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hbeemokrww .gt_font_normal {
+#jrieqpzzsk .gt_font_normal {
   font-weight: normal;
 }
 
-#hbeemokrww .gt_font_bold {
+#jrieqpzzsk .gt_font_bold {
   font-weight: bold;
 }
 
-#hbeemokrww .gt_font_italic {
+#jrieqpzzsk .gt_font_italic {
   font-style: italic;
 }
 
-#hbeemokrww .gt_super {
+#jrieqpzzsk .gt_super {
   font-size: 65%;
 }
 
-#hbeemokrww .gt_footnote_marks {
+#jrieqpzzsk .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="hbeemokrww" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="jrieqpzzsk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="5" class="gt_heading gt_title gt_font_normal" style><strong>Mistakes Were Made</strong></th>
